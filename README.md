@@ -125,17 +125,31 @@ ALTER USER externalmktdata SET search_path TO externalmktdata, pegadata, public;
 
 Open Pega Installation extract folder (e.g.: `C:\Users\%username%\pega_install`) and execute `PRPC_Setup.jar`, follow installation steps.
 
+### Select installation or upgrade
+
 ![Begin](assets/images/pega_install.png)
 
-![Select Database](assets/images/pega_install_db.pnga_install.png)
+### Select database type
 
-![DB Settings](assets/images/pega_install_db_settings.pngll.png)
+![Select Database](assets/images/pega_install_db.png)
+
+### Specify database settings
+
+![DB Settings](assets/images/pega_install_db_settings.png)
+
+### Leave `Bypass Automatic DDL Application` unchecked (default)
 
 ![Bypass Schema](assets/images/pega_install_bypass_schema.png)
 
+### Specify temporal Pega admin password used for login (administrator@pega.com)
+
 ![Temp Admin Password](assets/images/pega_install_administrator_pwd.png)
 
+### Set system and system level. Default settings for development purposes should be good.
+
 ![System Name](assets/images/pega_install_system_name.png)
+
+### Hit `start` to proceed with installation.
 
 ![Start Installation](assets/images/pega_install_start.png)
 
@@ -149,6 +163,10 @@ Open Pega Installation extract folder (e.g.: `C:\Users\%username%\pega_install`)
 
 `docker-compose up`
 
-Use Docker Desktop client to manage the instances and check the status.
+Use Docker Desktop client to manage the instances and check the status. If everythinf went well, containers should be running.
 
-Open browser and point to http://localhost/prweb/ login to Pega using operator details provided during installation.
+![Pega Docker Running](assets/images/pega_docker_running.png)
+
+Open browser and point to http://localhost/prweb/ 
+
+Login to Pega using `administrator@pega.com` operator with temporal password created during installation.
