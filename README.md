@@ -141,7 +141,7 @@ Open Pega Installation extract folder (e.g.: `C:\Users\%username%\pega_install`)
 
 ![Bypass Schema](assets/images/pega_install_bypass_schema.png)
 
-### Specify temporal Pega admin password used for login (administrator@pega.com)
+### Specify temporal admin password used for login to Pega
 
 ![Temp Admin Password](assets/images/pega_install_administrator_pwd.png)
 
@@ -163,10 +163,10 @@ Open Pega Installation extract folder (e.g.: `C:\Users\%username%\pega_install`)
 
 `docker-compose up`
 
-Use Docker Desktop client to manage the instances and check the status. If everythinf went well, containers should be running.
+Use Docker Desktop client to manage the instances and check the status. If everything went well, containers should be running.
 
 ![Pega Docker Running](assets/images/pega_docker_running.png)
 
 Open browser and point to http://localhost/prweb/ 
 
-Login to Pega using `administrator@pega.com` operator with temporal password created during installation.
+Login to Pega using default admin operator with temporal password created during installation.
