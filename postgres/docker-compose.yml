@@ -1,0 +1,19 @@
+version: '2.0'
+
+services:
+  postgres:
+    image: postgres:11.18-bullseye
+    container_name: postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - 'postgresql-data:/var/lib/postgresql/data'
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+volumes:
+  postgresql-data: {}
+networks:
+  postgres_default:
+    external: true

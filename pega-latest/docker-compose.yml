@@ -1,0 +1,53 @@
+version: '2.0'
+
+services:
+  cassandra:
+    image: cassandra:3.11.13
+    container_name: cassandra
+    ports:
+      - '9042:9042'
+    volumes:
+      - 'cassandra_data:/var/lib/cassandra'
+    restart: always
+  pega:
+    depends_on:
+      - cassandra
+    image: pega-tomcat:latest
+    container_name: pega
+    ports:
+      - '80:8080'
+      - '7003:7003'
+      - '2181:2181'
+      - '9999:9999'
+    volumes:
+      - 'cassandra_data:/var/lib/cassandra'
+      - 'kafka-data:/opt/pega/kafkadata'
+      - 'search_index:/search_index'
+      - 'heapdumps:/heapdumps'
+    networks:
+      - default
+      - postgres_default
+    external_links:
+      - cassandra:cassandra
+      - postgres:postgres
+    restart: always
+    environment:
+      INITIAL_HEAP: 4096m
+      JDBC_URL: 'jdbc:postgresql://postgres:5432/pega'
+      JDBC_CLASS: org.postgresql.Driver
+      DB_USERNAME: pega
+      DB_PASSWORD: pega
+      RULES_SCHEMA: pegarules
+      DATA_SCHEMA: pegadata
+      NODE_TYPE: 'WebUser,ADM,RTDG,RealTime,Batch,Search,BackgroundProcessing,Custom1,Custom2,Stream'
+      CASSANDRA_CLUSTER: true
+      CASSANDRA_NODES: cassandra
+volumes:
+  cassandra_data: {}
+  postgresql-data: {}
+  kafka-data: {}
+  heapdumps: {}
+  search_index: {}
+networks:
+  postgres_default:
+    external: true
