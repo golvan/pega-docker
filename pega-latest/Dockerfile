@@ -17,6 +17,7 @@ RUN chmod -R g+rw ${CATALINA_HOME}/webapps/prweb
 
 # Override default prconfig.xml
 COPY --chown=pegauser:root conf/prconfig.xml /opt/pega/config/prconfig.xml
+COPY --chown=pegauser:root conf/context.xml /opt/pega/config/context.xml
 
 # Make a jdbc driver available to tomcat applications
 COPY --chown=pegauser:root lib/postgresql-42.5.0.jar ${CATALINA_HOME}/lib/
