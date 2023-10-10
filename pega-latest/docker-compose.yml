@@ -1,5 +1,9 @@
 version: '2.0'
 
+networks:
+  postgres_default:
+    external: true
+
 services:
   cassandra:
     image: cassandra:3.11.13
@@ -9,19 +13,47 @@ services:
     volumes:
       - 'cassandra_data:/var/lib/cassandra'
     restart: always
+  zookeeper:
+    image: bitnami/zookeeper:latest
+    container_name: zookeeper
+    restart: always
+    ports:
+      - '2181:2181'
+    volumes:
+      - 'zookeeper_data:/bitnami'
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+  kafka:
+    depends_on:
+      - zookeeper
+    image: bitnami/kafka:latest
+    container_name: kafka
+    restart: always
+    ports:
+      - '9092:9092'
+      - '9093:9093'
+    volumes:
+      - 'kafka_data:/bitnami'
+    environment:
+      - KAFKA_ENABLE_KRAFT=no
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      - KAFKA_CFG_LISTENERS=CLIENT://:9092,EXTERNAL://:9093
+      - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://kafka:9092,EXTERNAL://localhost:9093
+      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=CLIENT
   pega:
     depends_on:
       - cassandra
+      - kafka
     image: pega-tomcat:latest
     container_name: pega
+    restart: always
     ports:
       - '80:8080'
       - '7003:7003'
-      - '2181:2181'
       - '9999:9999'
     volumes:
-      - 'cassandra_data:/var/lib/cassandra'
-      - 'kafka-data:/opt/pega/kafkadata'
       - 'search_index:/search_index'
       - 'heapdumps:/heapdumps'
     networks:
@@ -30,7 +62,6 @@ services:
     external_links:
       - cassandra:cassandra
       - postgres:postgres
-    restart: always
     environment:
       INITIAL_HEAP: 4096m
       JDBC_URL: 'jdbc:postgresql://postgres:5432/pega'
@@ -45,9 +76,7 @@ services:
 volumes:
   cassandra_data: {}
   postgresql-data: {}
-  kafka-data: {}
+  kafka_data: {}
   heapdumps: {}
   search_index: {}
-networks:
-  postgres_default:
-    external: true
+  zookeeper_data: {}

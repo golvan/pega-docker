@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pegarules>
+    <env name="services/stream/provider" value="ExternalKafka"/>
+    <env name="services/stream/broker/url" value="host.docker.internal:9092"/>
+    <env name="services/stream/provider/url" value="host.docker.internal:9092" />
+    <env name="services/stream/external/replication/factor" value="1"/>
+    <env name="services/stream/encryption/security/protocol" value="PLAINTEXT"/>
+    <env name="services/stream/encryption/sasl/mechanism" value="PLAIN"/>
+    <env name="initialization/settingsource" value="merged" />
+    <env name="database/databases/PegaRULES/dataSource" value="java:comp/env/jdbc/PegaRULES"/>
+    <env name="database/databases/PegaDATA/dataSource" value="java:comp/env/jdbc/PegaRULES"/>
+    <env name="database/databases/ExternalMKTData/dataSource" value="java:comp/env/jdbc/ExternalMKTData"/>
+</pegarules>
