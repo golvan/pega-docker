@@ -10,7 +10,7 @@ Download and install docker: https://docs.docker.com/desktop/install/windows-ins
 
 Download latest Pega Platform from https://my.pega.com/ and extract zip content to local path. E.g.: `C:\Users\%username%\pega_install`
 
-This assumes you have a valid license. Personal edition is also available, but it's not covered here.
+This assumes you have a valid license.
 
 ## Getting docker images (using command line)
 
@@ -21,6 +21,12 @@ Download Cassandra docker image
 Download Postgres docker image
 
 ### `docker pull postgres:11.18-bullseye`
+
+Download kafka and zookeeper images (bintami)
+
+### `docker pull bitnami/kafka`
+
+### `docker pull bitnami/zookeeper`
 
 Download Pega Tomcat docker image (latest)
 
@@ -77,13 +83,8 @@ CREATE USER externalmktdata WITH
   INHERIT
   CREATEDB
   CREATEROLE
-  NOREPLICATION;p.
-```
+  NOREPLICATION;
 
-Disconnet and connect to postgres DB as `pega` user created above.
-
-##### 2
-```
 CREATE DATABASE pega WITH 
   OWNER = pega
   ENCODING = 'UTF8'
@@ -92,7 +93,10 @@ CREATE DATABASE pega WITH
   TABLESPACE = pg_default
   CONNECTION LIMIT = -1;
 ```
-##### 3
+
+Disconnet and connect to postgres DB as `pega` user created above.
+
+##### 2
 ```
 CREATE SCHEMA externalmktdata
   AUTHORIZATION externalmktdata;
@@ -105,7 +109,7 @@ CREATE SCHEMA pegarules
   
 CREATE SCHEMA sqlj;
 ```
-##### 4
+##### 3
 ```
 GRANT ALL ON SCHEMA externalmktdata TO pega;
 GRANT ALL ON SCHEMA externalmktdata TO externalmktdata;
@@ -115,7 +119,7 @@ GRANT ALL ON SCHEMA pegarules TO pega;
 GRANT ALL ON SCHEMA pegarules TO PUBLIC;
 GRANT USAGE ON SCHEMA sqlj TO public;
 ```
-##### 5
+##### 4
 ```
 ALTER ROLE pega IN DATABASE pega SET search_path TO pegarules, pegadata, public;
 ALTER USER externalmktdata SET search_path TO externalmktdata, pegadata, public;
