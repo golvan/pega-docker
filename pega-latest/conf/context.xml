@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Context>
+  <WatchedResource>WEB-INF/web.xml</WatchedResource>
+  <Manager pathname="" />
+  
+        <Resource name="jdbc/PegaRULES"
+                auth="Container"
+                type="javax.sql.DataSource"
+                driverClassName="org.postgresql.Driver"
+                url="jdbc:postgresql://postgres:5432/pega"
+                username="pega"
+                password="pega"
+                maxTotal="75"
+                minIdle="3"
+                maxIdle="25"
+                maxWaitMillis="10000"
+        initialSize="0"
+        connectionProperties=""
+        timeBetweenEvictionRunsMillis="30000"
+        minEvictableIdleTimeMillis="60000"
+        />
+
+        <Resource
+            name="jdbc/ExternalMKTData"
+            auth="Container"
+            fairQueue="true"
+            type="javax.sql.DataSource"
+            driverClassName="org.postgresql.Driver"
+            username="externalmktdata"
+            password="externalmktdata"
+            url="jdbc:postgresql://postgres:5432/pega"
+            maxActive="100"
+            maxIdle="32"
+            maxWaitMillis="30000"
+        />
+
+  <Environment name="prconfig/database/databases/PegaRULES/defaultSchema" value="pegarules" type="java.lang.String" />
+  <Environment name="prconfig/database/databases/PegaDATA/defaultSchema"  value="pegadata"  type="java.lang.String" />
+  <Environment name="prconfig/database/databases/ExternalMKTData/defaultSchema" value="externalmktdata" type="java.lang.String" />
+  <Environment name="prconfig/database/databases/CustomerData/defaultSchema" value="pegadata" type="java.lang.String" />
+  
+</Context>
