@@ -16,21 +16,21 @@ This assumes you have a valid license.
 
 Download Cassandra docker image
 
-### `docker pull cassandra:3.11.13`
+### `docker pull cassandra:4.1.5`
 
 Download Postgres docker image
 
-### `docker pull postgres:11.18-bullseye`
+### `docker pull postgres:14.12-bullseye`
 
 Download kafka and zookeeper images (bintami)
 
-### `docker pull bitnami/kafka`
+### `docker pull bitnami/kafka:3.6.2`
 
-### `docker pull bitnami/zookeeper`
+### `docker pull bitnami/zookeeper:latest`
 
 Download Pega Tomcat docker image (latest)
 
-### `docker pull pegasystems/pega-ready`
+### `docker pull pegasystems/pega-ready:latest`
 
 ## Create pega tomcat image
 
@@ -40,9 +40,9 @@ Copy `prweb.war` from Pega Installation extract folder (e.g.: `C:\Users\%usernam
 
 Download PostgreSQL JDBC driver corresponding to used Java and Postgres version: https://jdbc.postgresql.org/download/
 
-Copy PostgreSQL JDBC driver to dockerfile lib folder, e.g. using `postgresql-42.5.0.jar`
+Copy PostgreSQL JDBC driver to dockerfile lib folder, e.g. using `postgresql-42.7.3.jar`
 
-### `cp %userprofile%\downloads\postgresql-42.5.0.jar %userprofile%\pega-docker\lib\postgresql-42.5.0.jar`
+### `cp %userprofile%\downloads\postgresql-42.7.3.jar %userprofile%\pega-docker\lib\postgresql-42.7.3.jar`
 
 Create or use provided dockerfile and update to match location of prweb.war and PostgreSQL JDBC driver version
 
