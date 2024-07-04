@@ -6,7 +6,7 @@ networks:
 
 services:
   cassandra:
-    image: cassandra:3.11.13
+    image: cassandra:4.1.5
     container_name: cassandra
     ports:
       - '9042:9042'
@@ -26,7 +26,7 @@ services:
   kafka:
     depends_on:
       - zookeeper
-    image: bitnami/kafka:latest
+    image: bitnami/kafka:3.6.2
     container_name: kafka
     restart: always
     ports:
