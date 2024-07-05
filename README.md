@@ -24,7 +24,7 @@ Download Postgres docker image
 
 Download kafka and zookeeper images (bintami)
 
-### `docker pull bitnami/kafka:3.6.2`
+### `docker pull bitnami/kafka:3.6.0`
 
 ### `docker pull bitnami/zookeeper:latest`
 
