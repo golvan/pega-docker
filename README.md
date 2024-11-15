@@ -20,7 +20,7 @@ Download Cassandra docker image
 
 Download Postgres docker image
 
-### `docker pull postgres:14.12-bullseye`
+### `docker pull postgres:14.13-bullseye`
 
 Download kafka and zookeeper images (bintami)
 
